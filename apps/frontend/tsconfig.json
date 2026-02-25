@@ -23,8 +23,7 @@
       "@/components/*": ["./src/components/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/types/*": ["./src/types/*"],
-      "@vietspeak/shared-types": ["../../packages/shared-types/src"]
+      "@/types/*": ["./src/types/*"]
     },
     "baseUrl": "."
   },
