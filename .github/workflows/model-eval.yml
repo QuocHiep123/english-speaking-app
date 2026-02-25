@@ -1,0 +1,79 @@
+# =============================================================================
+# GitHub Actions - Model Evaluation
+# =============================================================================
+
+name: Model Evaluation
+
+on:
+  push:
+    paths:
+      - 'ai-core/**'
+      - '.github/workflows/model-eval.yml'
+  workflow_dispatch:
+    inputs:
+      model_checkpoint:
+        description: 'Model checkpoint path'
+        required: false
+        default: 'models/pronunciation_scorer/best.pt'
+
+jobs:
+  evaluate:
+    name: Evaluate Model
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          cd ai-core
+          pip install -r requirements.txt
+
+      - name: Download test dataset
+        run: |
+          # Download or prepare test dataset
+          echo "Preparing test dataset..."
+
+      - name: Run evaluation
+        run: |
+          cd ai-core
+          python scripts/evaluate.py --config configs/eval_config.yaml
+
+      - name: Upload evaluation results
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-results
+          path: ai-core/results/evaluation/
+
+      - name: Comment on PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const metrics = JSON.parse(fs.readFileSync('ai-core/results/evaluation/metrics.json'));
+            
+            const comment = `## 📊 Model Evaluation Results
+            
+            | Metric | Value |
+            |--------|-------|
+            | GOP Correlation | ${metrics.gop_correlation.toFixed(4)} |
+            | Phoneme Accuracy | ${(metrics.phoneme_accuracy * 100).toFixed(2)}% |
+            | Word Error Rate | ${(metrics.word_error_rate * 100).toFixed(2)}% |
+            | Latency (P50) | ${metrics.latency_p50_ms.toFixed(2)} ms |
+            | Latency (P99) | ${metrics.latency_p99_ms.toFixed(2)} ms |
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

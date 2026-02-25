@@ -1,0 +1,19 @@
+# =============================================================================
+# MCP Server Dependencies
+# =============================================================================
+
+# MCP SDK
+mcp>=1.0.0
+
+# Server Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+httpx==0.26.0
+sse-starlette==2.0.0
+
+# Shared dependencies
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Audio processing (shared with backend)
+numpy>=1.24.0

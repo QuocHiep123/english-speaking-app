@@ -1,0 +1,50 @@
+# =============================================================================
+# Evaluation Configuration
+# =============================================================================
+
+# Experiment Info
+experiment:
+  name: "pronunciation_scorer_eval"
+  description: "Evaluate pronunciation scoring model"
+
+# Model Configuration
+model:
+  checkpoint_path: "models/pronunciation_scorer/best.pt"
+  backbone: "facebook/wav2vec2-base"
+
+# Data Configuration
+data:
+  test_path: "data/processed/test"
+  sample_rate: 16000
+
+# Evaluation Metrics
+metrics:
+  # Pronunciation Assessment Metrics
+  pronunciation:
+    - name: "gop_correlation"
+      description: "Correlation between predicted and ground truth GOP scores"
+    - name: "phoneme_accuracy"
+      description: "Accuracy of phoneme recognition"
+    - name: "word_error_rate"
+      description: "Word Error Rate for transcription"
+  
+  # Model Performance
+  performance:
+    - name: "latency_p50"
+      description: "50th percentile latency in milliseconds"
+    - name: "latency_p99"
+      description: "99th percentile latency in milliseconds"
+    - name: "throughput"
+      description: "Audio seconds processed per second"
+
+# Output Configuration
+output:
+  results_dir: "results/evaluation"
+  save_predictions: true
+  generate_report: true
+  report_format: "html"
+
+# Hardware
+hardware:
+  device: "cuda"
+  batch_size: 32

@@ -1,0 +1,92 @@
+# =============================================================================
+# Training Configuration - Pronunciation Scorer
+# =============================================================================
+
+# Experiment Info
+experiment:
+  name: "pronunciation_scorer_v1"
+  description: "GOP-based pronunciation scoring model for Vietnamese English learners"
+  tags:
+    - pronunciation
+    - vietnamese
+    - gop
+
+# Data Configuration
+data:
+  dataset: "vivos"
+  train_path: "data/processed/train"
+  val_path: "data/processed/val"
+  test_path: "data/processed/test"
+  
+  # Audio preprocessing
+  sample_rate: 16000
+  max_duration: 10.0  # seconds
+  
+  # Data augmentation
+  augmentation:
+    enabled: true
+    noise_injection: 0.1
+    speed_perturbation: [0.9, 1.0, 1.1]
+    pitch_shift: [-2, 0, 2]
+
+# Model Configuration
+model:
+  name: "wav2vec2_gop"
+  backbone: "facebook/wav2vec2-base"
+  
+  # Fine-tuning settings
+  freeze_backbone: false
+  freeze_feature_encoder: true
+  
+  # Output heads
+  heads:
+    phoneme_classifier:
+      hidden_size: 256
+      num_phonemes: 44  # CMU phoneme set
+    gop_regressor:
+      hidden_size: 128
+
+# Training Configuration
+training:
+  # Hardware
+  device: "cuda"
+  num_workers: 4
+  precision: "fp16"
+  
+  # Optimization
+  epochs: 50
+  batch_size: 16
+  learning_rate: 1e-4
+  weight_decay: 0.01
+  warmup_steps: 1000
+  
+  # Learning rate schedule
+  scheduler: "cosine"
+  min_lr: 1e-6
+  
+  # Regularization
+  dropout: 0.1
+  label_smoothing: 0.1
+  
+  # Early stopping
+  early_stopping:
+    patience: 5
+    min_delta: 0.001
+    monitor: "val_loss"
+
+# Checkpointing
+checkpoint:
+  save_dir: "models/checkpoints"
+  save_top_k: 3
+  monitor: "val_loss"
+  mode: "min"
+
+# Logging
+logging:
+  log_every_n_steps: 100
+  mlflow:
+    tracking_uri: "mlruns"
+    experiment_name: "pronunciation_scoring"
+  wandb:
+    project: "vietspeak-ai"
+    entity: "your-username"

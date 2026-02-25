@@ -1,0 +1,14 @@
+# AI Core - Models Directory
+# ===========================
+# This directory contains trained model checkpoints.
+#
+# Structure:
+# models/
+# ├── checkpoints/         # Training checkpoints
+# ├── pronunciation_scorer/ # Production pronunciation model
+# │   ├── config.json
+# │   └── best.pt
+# └── whisper/             # Whisper ASR model cache
+#
+# Note: Model files (*.pt, *.pth, *.onnx) are excluded from git.
+# Use model versioning tools (MLflow, DVC) for model management.

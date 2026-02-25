@@ -1,0 +1,105 @@
+# =============================================================================
+# Docker Compose - Development Environment
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ../../apps/frontend
+      dockerfile: ../../infra/docker/frontend.Dockerfile
+      target: deps  # Use deps stage for development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../apps/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    command: npm run dev
+    depends_on:
+      - backend
+
+  # Backend (FastAPI)
+  backend:
+    build:
+      context: ../../apps/backend
+      dockerfile: ../../infra/docker/backend.Dockerfile
+      target: runtime
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../../apps/backend:/app
+      - ../../ai-core/models:/app/models:ro
+    environment:
+      - DEBUG=true
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/vietspeak
+      - REDIS_URL=redis://redis:6379/0
+      - WHISPER_MODEL=base
+      - USE_GPU=false
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - db
+      - redis
+
+  # MCP Server
+  mcp-server:
+    build:
+      context: ../../mcp
+      dockerfile: ../infra/docker/backend.Dockerfile  # Reuse backend image
+      target: runtime
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../../mcp:/app
+    environment:
+      - BACKEND_URL=http://backend:8000
+    command: python -m src.server --transport http --port 8080
+    depends_on:
+      - backend
+
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=vietspeak
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # MLflow Tracking Server (Optional)
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.9.0
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///mlflow/mlflow.db
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow/mlflow.db --default-artifact-root /mlflow/artifacts
+
+volumes:
+  postgres_data:
+  redis_data:
+  mlflow_data:
+
+networks:
+  default:
+    name: vietspeak-network

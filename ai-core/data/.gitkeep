@@ -1,0 +1,17 @@
+# AI Core - Data Directory
+# =========================
+# This directory contains datasets for training and evaluation.
+#
+# Structure:
+# data/
+# ├── raw/                  # Original, unprocessed datasets
+# │   ├── vivos/           # VIVOS Vietnamese speech corpus
+# │   └── custom/          # Custom pronunciation datasets
+# ├── processed/           # Preprocessed, ready-to-train data
+# │   ├── train/
+# │   ├── val/
+# │   └── test/
+# └── sample/              # Small sample data for testing
+#
+# Note: Large dataset files are excluded from git.
+# Use DVC or download scripts to obtain the full datasets.

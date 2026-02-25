@@ -1,0 +1,21 @@
+# =============================================================================
+# Development Dependencies for AI Core
+# =============================================================================
+
+# Testing
+pytest==7.4.4
+pytest-cov==4.1.0
+
+# Notebooks
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+ipywidgets>=8.1.0
+
+# Code Quality
+ruff==0.1.13
+mypy==1.8.0
+black==24.1.1
+
+# Profiling
+memory-profiler>=0.61.0
+line-profiler>=4.1.0

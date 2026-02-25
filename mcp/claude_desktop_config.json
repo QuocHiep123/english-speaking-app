@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "vietspeak-pronunciation": {
+      "command": "python",
+      "args": ["-m", "src.server"],
+      "cwd": "${workspaceFolder}/mcp",
+      "env": {
+        "BACKEND_URL": "http://localhost:8000"
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 245, 245, 250;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 10, 10, 20;
+    --background-end-rgb: 30, 30, 45;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Audio Recorder Styles */
+.recorder-button {
+  @apply rounded-full p-6 transition-all duration-300;
+  @apply bg-gradient-to-r from-blue-500 to-purple-600;
+  @apply hover:from-blue-600 hover:to-purple-700;
+  @apply active:scale-95;
+}
+
+.recorder-button.recording {
+  @apply animate-pulse;
+  @apply from-red-500 to-pink-600;
+}
+
+/* Pronunciation Score Display */
+.score-excellent { @apply text-green-500; }
+.score-good { @apply text-blue-500; }
+.score-fair { @apply text-yellow-500; }
+.score-poor { @apply text-red-500; }
