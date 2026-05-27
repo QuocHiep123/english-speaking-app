@@ -3,7 +3,7 @@
 # =============================================================================
 
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,18 +11,44 @@ from fastapi.middleware.gzip import GZipMiddleware
 
 from src.api.routes import api_router
 from src.core.config import settings
-from src.core.logging import setup_logging
+from src.core.logging import get_logger, setup_logging
+from src.services.llm_service import IELTSEvaluatorService
+from src.services.stt import SpeechToTextService
+
+logger = get_logger(__name__)
+
+# Global singletons — initialised during lifespan startup
+stt_service: Optional[SpeechToTextService] = None
+llm_service: Optional[IELTSEvaluatorService] = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application lifespan handler for startup and shutdown events."""
+    global stt_service, llm_service
+
     # Startup
     setup_logging()
-    # Load ML models here if needed
+
+    # Ensure the active database has its tables and at least the bundled
+    # IELTS prompts. Works whether we land on Supabase or the SQLite fallback.
+    try:
+        from src.seed_data import seed_if_empty
+
+        inserted = seed_if_empty()
+        logger.info("db_ready", seeded=inserted)
+    except Exception as exc:  # noqa: BLE001 — never block startup on seeding
+        logger.warning("db_seed_skipped", error=f"{type(exc).__name__}: {exc}")
+
+    # Lightweight cloud-backed services (no local model weights)
+    stt_service = SpeechToTextService(model=settings.GROQ_WHISPER_MODEL)
+    llm_service = IELTSEvaluatorService(model=settings.GROQ_LLM_MODEL)
+
     yield
-    # Shutdown
-    # Cleanup resources here
+
+    # Shutdown — release services
+    stt_service = None
+    llm_service = None
 
 
 app = FastAPI(

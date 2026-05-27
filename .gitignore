@@ -169,3 +169,21 @@ tmp/
 temp/
 *.tmp
 *.temp
+
+# -----------------------------------------------------------------------------
+# Local databases & build artifacts (regenerable — keep out of git)
+# -----------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.tsbuildinfo
+
+# -----------------------------------------------------------------------------
+# Large ML datasets & model checkpoints (use DVC / Hugging Face Hub instead)
+# -----------------------------------------------------------------------------
+ai-core/data/raw/
+ai-core/data/processed/
+ai-core/models/*/
+!ai-core/models/.gitkeep
+*.arrow
+*.TextGrid

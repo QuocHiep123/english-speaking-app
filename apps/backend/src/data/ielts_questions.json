@@ -1,0 +1,154 @@
+{
+  "questions": [
+    {
+      "part": 1,
+      "topic": "Hometown",
+      "question": "Can you describe your hometown? What do you like most about it?"
+    },
+    {
+      "part": 1,
+      "topic": "Work & Study",
+      "question": "Do you work or are you a student? What do you enjoy about your work or studies?"
+    },
+    {
+      "part": 1,
+      "topic": "Daily Routine",
+      "question": "What does a typical day look like for you?"
+    },
+    {
+      "part": 1,
+      "topic": "Hobbies",
+      "question": "What do you like to do in your free time?"
+    },
+    {
+      "part": 1,
+      "topic": "Reading",
+      "question": "Do you enjoy reading? What kind of books do you prefer?"
+    },
+    {
+      "part": 1,
+      "topic": "Music",
+      "question": "What type of music do you listen to? Has your taste in music changed over the years?"
+    },
+    {
+      "part": 1,
+      "topic": "Weather",
+      "question": "What is the weather like in your country? Do you prefer hot or cold weather?"
+    },
+    {
+      "part": 1,
+      "topic": "Food",
+      "question": "What is your favourite food? Do you prefer eating at home or at a restaurant?"
+    },
+    {
+      "part": 1,
+      "topic": "Sports",
+      "question": "Do you play any sports? Why or why not?"
+    },
+    {
+      "part": 1,
+      "topic": "Technology",
+      "question": "How often do you use the internet? What do you mainly use it for?"
+    },
+    {
+      "part": 2,
+      "topic": "A Meaningful Experience",
+      "question": "Describe a time when you helped someone. You should say who you helped, how you helped them, why they needed help, and explain how you felt about it."
+    },
+    {
+      "part": 2,
+      "topic": "A Place You Visited",
+      "question": "Describe a city or town you have visited that you particularly liked. You should say where it is, when you went there, what you did there, and explain why you liked it."
+    },
+    {
+      "part": 2,
+      "topic": "A Person You Admire",
+      "question": "Describe a person who has had a great influence on your life. You should say who this person is, how you know them, what they have done, and explain why they have influenced you."
+    },
+    {
+      "part": 2,
+      "topic": "Education",
+      "question": "Describe a subject you enjoyed studying at school. You should say what the subject was, who taught it, what you learned, and explain why you found it interesting."
+    },
+    {
+      "part": 2,
+      "topic": "A Memorable Event",
+      "question": "Describe a celebration or festival you have attended. You should say what the event was, where it took place, what happened during it, and explain why it was memorable for you."
+    },
+    {
+      "part": 2,
+      "topic": "An Achievement",
+      "question": "Describe something you did that you are proud of. You should say what you did, when you did it, how difficult it was, and explain why you feel proud of it."
+    },
+    {
+      "part": 2,
+      "topic": "A Book or Film",
+      "question": "Describe a book or film that made a strong impression on you. You should say what it was about, when you read or watched it, what you liked about it, and explain why it impressed you."
+    },
+    {
+      "part": 2,
+      "topic": "Environment",
+      "question": "Describe a natural place you would like to visit. You should say where it is, how you know about it, what you would do there, and explain why you would like to visit it."
+    },
+    {
+      "part": 2,
+      "topic": "Childhood Memory",
+      "question": "Describe a happy memory from your childhood. You should say what happened, where you were, who you were with, and explain why this memory is special to you."
+    },
+    {
+      "part": 2,
+      "topic": "A Skill",
+      "question": "Describe a skill you would like to learn in the future. You should say what the skill is, why you want to learn it, how you would learn it, and explain how it would benefit you."
+    },
+    {
+      "part": 3,
+      "topic": "Education & Technology",
+      "question": "How has technology changed the way people learn? Do you think online learning can replace traditional classrooms?"
+    },
+    {
+      "part": 3,
+      "topic": "Environment",
+      "question": "What are the biggest environmental challenges facing your country today? What can individuals do to help protect the environment?"
+    },
+    {
+      "part": 3,
+      "topic": "Globalisation",
+      "question": "Do you think globalisation has a positive or negative impact on local cultures? How can countries preserve their traditions?"
+    },
+    {
+      "part": 3,
+      "topic": "Work & Career",
+      "question": "How do you think the job market will change in the next twenty years? What skills will be most important?"
+    },
+    {
+      "part": 3,
+      "topic": "Health & Lifestyle",
+      "question": "Why do you think some people find it difficult to maintain a healthy lifestyle? What role should the government play in promoting public health?"
+    },
+    {
+      "part": 3,
+      "topic": "Media & Society",
+      "question": "How has social media influenced the way people communicate? Do you think it has more advantages or disadvantages?"
+    },
+    {
+      "part": 3,
+      "topic": "Urban Development",
+      "question": "What are the advantages and disadvantages of living in a big city compared to the countryside?"
+    },
+    {
+      "part": 3,
+      "topic": "Travel & Culture",
+      "question": "Some people believe that travelling is the best way to learn about other cultures. Do you agree? Why or why not?"
+    },
+    {
+      "part": 3,
+      "topic": "Youth & Society",
+      "question": "What challenges do young people face today that previous generations did not? How can society better support young people?"
+    },
+    {
+      "part": 3,
+      "topic": "Artificial Intelligence",
+      "question": "What are your views on the increasing use of artificial intelligence in everyday life? Do the benefits outweigh the risks?"
+    }
+  ]
+}

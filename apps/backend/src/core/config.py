@@ -28,10 +28,13 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/vietspeak"
     REDIS_URL: str = "redis://localhost:6379/0"
 
-    # AI Models
-    WHISPER_MODEL: str = "base"  # tiny, base, small, medium, large
+    # Groq Cloud API
+    GROQ_API_KEY: str = ""
+
+    # AI Models (Groq-hosted)
+    GROQ_WHISPER_MODEL: str = "whisper-large-v3"
+    GROQ_LLM_MODEL: str = "llama-3.3-70b-versatile"
     PRONUNCIATION_MODEL_PATH: str = "models/pronunciation_scorer"
-    USE_GPU: bool = True
 
     # Audio Processing
     AUDIO_SAMPLE_RATE: int = 16000

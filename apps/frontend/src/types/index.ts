@@ -38,3 +38,29 @@ export interface AnalyzeResponse {
   data: PronunciationResult;
   error?: string;
 }
+
+// ---------------------------------------------------------------------------
+// IELTS Speaking Assessment types
+// ---------------------------------------------------------------------------
+
+export interface IELTSPrompt {
+  id: number;
+  part: number;
+  topic: string;
+  question: string;
+}
+
+export interface IELTSEvaluation {
+  corrected_text: string | null;
+  lexical_score: number | null;
+  grammar_score: number | null;
+  feedback: string | null;
+  llm_parse_error?: string;
+  raw_llm_response?: string;
+}
+
+export interface AssessmentResponse {
+  raw_transcript: string;
+  evaluation: IELTSEvaluation;
+  attempt_id: number | null;
+}

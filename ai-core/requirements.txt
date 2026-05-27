@@ -28,6 +28,7 @@ phonemizer==3.2.1
 pandas>=2.0.0
 pyarrow>=14.0.0
 datasets>=2.15.0
+tgt>=1.4.4
 
 # Experiment Tracking
 mlflow>=2.9.0

@@ -1,74 +1,53 @@
-interface PhonemeFeedback {
-  phoneme: string;
-  score: number;
-  suggestion?: string;
-}
+import { Lightbulb, AlertTriangle } from "lucide-react";
 
 interface FeedbackPanelProps {
-  feedback: {
-    phonemes: PhonemeFeedback[];
-    suggestions: string[];
-    vietnameseInterference?: string[];
-  };
+  feedback: string | null;
+  parseError?: string;
 }
 
-export function FeedbackPanel({ feedback }: FeedbackPanelProps) {
+export function FeedbackPanel({ feedback, parseError }: FeedbackPanelProps) {
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-gray-800">Góp ý chi tiết</h3>
-
-      {/* Phoneme-level feedback */}
-      {feedback.phonemes.length > 0 && (
-        <div>
-          <h4 className="text-sm font-medium text-gray-600 mb-2">
-            Phân tích âm vị
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {feedback.phonemes.map((p, idx) => (
-              <span
-                key={idx}
-                className={`px-2 py-1 rounded text-sm ${
-                  p.score >= 80
-                    ? "bg-green-100 text-green-700"
-                    : p.score >= 60
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-red-100 text-red-700"
-                }`}
-                title={p.suggestion}
-              >
-                {p.phoneme}
-              </span>
-            ))}
+    <div className="space-y-4">
+      {/* Parse error warning */}
+      {parseError && (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="mt-0.5 rounded-full bg-amber-100 p-2">
+              <AlertTriangle className="h-5 w-5 text-amber-500" />
+            </div>
+            <div>
+              <h4 className="mb-1 text-sm font-bold uppercase tracking-wider text-amber-700">
+                Processing Note
+              </h4>
+              <p className="text-sm leading-relaxed text-amber-800">{parseError}</p>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Vietnamese interference notes */}
-      {feedback.vietnameseInterference && feedback.vietnameseInterference.length > 0 && (
-        <div>
-          <h4 className="text-sm font-medium text-gray-600 mb-2">
-            🇻🇳 Lưu ý cho người Việt
-          </h4>
-          <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-            {feedback.vietnameseInterference.map((note, idx) => (
-              <li key={idx}>{note}</li>
-            ))}
-          </ul>
+      {/* Main feedback */}
+      {feedback ? (
+        <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 shadow-sm transition-shadow hover:shadow-md">
+          <div className="flex items-start gap-4">
+            <div className="mt-0.5 rounded-full bg-blue-100 p-2">
+              <Lightbulb className="h-5 w-5 text-blue-500" />
+            </div>
+            <div>
+              <h4 className="mb-2 text-sm font-bold uppercase tracking-wider text-blue-700">
+                Examiner Feedback
+              </h4>
+              <p className="text-[15px] leading-relaxed text-slate-700 whitespace-pre-line">
+                {feedback}
+              </p>
+            </div>
+          </div>
         </div>
-      )}
-
-      {/* General suggestions */}
-      {feedback.suggestions.length > 0 && (
-        <div>
-          <h4 className="text-sm font-medium text-gray-600 mb-2">
-            💡 Gợi ý cải thiện
-          </h4>
-          <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-            {feedback.suggestions.map((suggestion, idx) => (
-              <li key={idx}>{suggestion}</li>
-            ))}
-          </ul>
-        </div>
+      ) : (
+        !parseError && (
+          <p className="text-center text-sm italic text-gray-400">
+            No feedback available.
+          </p>
+        )
       )}
     </div>
   );

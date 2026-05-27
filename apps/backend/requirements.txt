@@ -9,24 +9,18 @@ python-multipart==0.0.6
 pydantic==2.5.0
 pydantic-settings==2.1.0
 
-# Audio Processing
-librosa==0.10.1
-soundfile==0.12.1
-pydub==0.25.1
-webrtcvad==2.0.10
+# Groq Cloud API
+groq>=0.12.0
+python-dotenv>=1.0.0
 
-# ML/AI
-torch>=2.1.0
-torchaudio>=2.1.0
-transformers==4.37.0
-openai-whisper>=20231117
-faster-whisper>=1.0.0
+# Audio Processing (validation / future local use)
 numpy>=1.24.0
-scipy>=1.11.0
+soundfile==0.12.1
 
 # Database
 sqlalchemy==2.0.25
 asyncpg==0.29.0
+psycopg2-binary==2.9.9
 redis==5.0.1
 alembic==1.13.1
 
@@ -45,3 +39,7 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 httpx==0.26.0
 aiofiles==23.2.1
+
+# Web Scraping
+requests>=2.31.0
+beautifulsoup4>=4.12.0
